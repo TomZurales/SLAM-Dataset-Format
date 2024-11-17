@@ -1,4 +1,5 @@
 #include "SDF.h"
+#include <yaml-cpp/yaml.h>
 
 #include <filesystem>
 
@@ -16,8 +17,11 @@ int main(int argc, char** argv)
   {
     if(std::filesystem::is_directory(entry.path()))
     {
-      if(std::filesystem::is_regular_file(entry.path() + "sensor.yaml")){
-        parse_yaml
+      if(std::filesystem::is_regular_file(entry.path().string() + "/sensor.yaml")){
+        YAML::Node sensorConfig = YAML::LoadFile(entry.path().string() + "/sensor.yaml");
+        for (YAML::const_iterator it = sensorConfig.begin(); it != sensorConfig.end(); ++it) {
+          std::cout << it->first.as<std::string>() << ": " << it->second << std::endl;
+        }
       }
     }
     std::cout << entry.path() << std::endl;
