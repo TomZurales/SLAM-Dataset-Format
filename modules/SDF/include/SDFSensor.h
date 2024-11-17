@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <eigen3/Eigen/Core>
+
 #include "SDFSensorType.h"
 
 class SDFSensor
@@ -8,6 +10,7 @@ class SDFSensor
 private:
   std::string label;
   std::string descripton;
+  Eigen::Matrix<float, 4, 4> transform;
 
 public:
   SDFSensor(std::string label);
@@ -17,5 +20,8 @@ public:
   std::string getLabel();
 
   std::string getDescription();
-  std::string setDescription();
+  void setDescription(std::string description);
+
+  Eigen::Matrix<float, 4, 4> getTransform();
+  void setTransform(Eigen::Matrix<float, 4, 4> transform);
 };

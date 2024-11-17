@@ -1,9 +1,25 @@
-find_package(OpenCV 4.10 REQUIRED)
+find_package(OpenCV 4 REQUIRED)
+find_package(Eigen3 3 REQUIRED)
 
-add_library(sdf SHARED src/SDF.cpp src/SDFSensor.cpp src/sensors/CameraSensor.cpp)
-target_include_directories(sdf PUBLIC include)
-target_include_directories(sdf PUBLIC ${OpenCV_INCLUDE_DIRS})
-target_link_libraries(sdf PUBLIC ${OpenCV_LIBS})
+add_library(sdf SHARED
+  src/SDF.cpp
+  src/SDFSensor.cpp
+  src/sensors/CameraSensor.cpp
+)
+
+target_include_directories(sdf
+  PUBLIC include
+)
+
+target_include_directories(sdf
+  PUBLIC ${OpenCV_INCLUDE_DIRS}
+  PUBLIC ${Eigen3_INCLUDE_DIRS}
+)
+
+target_link_libraries(sdf
+  PUBLIC ${OpenCV_LIBS}
+  PUBLIC ${Eigen3_LIBS}
+)
 
 # Testing
 add_executable(TestSDF test/testSDF.cpp)

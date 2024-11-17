@@ -24,5 +24,9 @@ Provide a standard for the creation and distribution of visual SLAM datasets.
 ### Suite of tools to simplify the creation and analysis of SLAM datasets
 
 ## Installation Instructions
+### Dependencies
+* OpenCV 4
+* Eigen3
+* libyaml-cpp
 ## Running Instructions
 ## Changelog

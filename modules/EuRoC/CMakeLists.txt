@@ -1,1 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+find_package(yaml REQUIRED)
+
+add_executable(EuRoCToSDF src/EuRoCToSDF.cc)
+target_link_libraries(EuRoCToSDF PUBLIC sdf)
