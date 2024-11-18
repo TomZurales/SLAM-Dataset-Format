@@ -6,8 +6,7 @@
 
 #include "SDFSensor.h"
 #include "SDFSensorType.h"
-
-#include "sensors/CameraSensor.h"
+#include <memory>
 
 class SDF
 {
@@ -18,7 +17,7 @@ public:
   SDF();
 
   template <typename T>
-  void addSensor(std::string label);
+  std::shared_ptr<T> addSensor(std::string label);
 
   template <typename T>
   std::shared_ptr<T> getSensorByLabel(std::string label);
@@ -28,10 +27,12 @@ public:
 };
 
 template <typename T>
-void SDF::addSensor(std::string label)
+std::shared_ptr<T> SDF::addSensor(std::string label)
 {
   static_assert(std::is_base_of<SDFSensor, T>::value, "Passed type is not an SDFSensor");
-  sensors.push_back(std::make_shared<T>(label));
+  std::shared_ptr<T> sensor = std::make_shared<T>(label);
+  sensors.push_back(sensor);
+  return sensor;
 }
 
 template <typename T>

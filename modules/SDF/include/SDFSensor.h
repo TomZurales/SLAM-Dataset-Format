@@ -16,10 +16,10 @@ public:
   SDFSensor(std::string label);
   virtual ~SDFSensor() = default;
   
-  std::string getLabel();
+  std::string getLabel(){return label;};
 
-  std::string getDescription();
-  void setDescription(std::string description);
+  std::string getDescription(){return descripton;};
+  void setDescription(std::string description){description = description;};
 
   Eigen::Matrix<float, 4, 4> getTransform();
   void setTransform(Eigen::Matrix<float, 4, 4> transform);

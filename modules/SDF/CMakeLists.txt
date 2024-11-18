@@ -5,6 +5,7 @@ add_library(sdf SHARED
   src/SDF.cpp
   src/SDFSensor.cpp
   src/sensors/CameraSensor.cpp
+  src/sensors/ImuSensor.cpp
 )
 
 target_include_directories(sdf

@@ -1,7 +1,10 @@
 #include "SDF.h"
 #include <yaml-cpp/yaml.h>
+#include <sensors/CameraSensor.h>
+#include <sensors/ImuSensor.h>
 
 #include <filesystem>
+
 class EuRoCToSDF
 {
 public:
@@ -21,19 +24,23 @@ public:
         if (std::filesystem::is_regular_file(entry.path().string() + "/sensor.yaml"))
         {
           YAML::Node sensorConfig = YAML::LoadFile(entry.path().string() + "/sensor.yaml");
-          createSensor(entry.path().stem(), sensorConfig);
+          createSensor(entry.path(), sensorConfig);
         }
       }
     }
   }
-  void createSensor(std::string label, YAML::Node sensorConfig)
+  void createSensor(std::filesystem::path path, YAML::Node sensorConfig)
   {
-    std::cout << "Label: " << label << std::endl;
     std::string sensorType = sensorConfig["sensor_type"].as<std::string>();
     if(sensorType == "camera")
     {
-      dataset->addSensor<CameraSensor>(label);
-    }
+      std::shared_ptr<CameraSensor> sensor = dataset->addSensor<CameraSensor>(path.stem());
+      sensor->setDescription(sensorConfig["comment"].as<std::string>());
+    } else if(sensorType == "imu")
+    {
+      std::shared_ptr<ImuSensor> sensor = dataset->addSensor<ImuSensor>(path.stem());
+      sensor->setDescription(sensorConfig["comment"].as<std::string>());
+    } 
   }
 };
 

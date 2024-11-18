@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include "SDF.h"
+#include <sensors/CameraSensor.h>
 
 TEST_CASE("Camera Setup", "[sdf]")
 {
