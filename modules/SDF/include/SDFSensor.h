@@ -10,13 +10,12 @@ class SDFSensor
 private:
   std::string label;
   std::string descripton;
-  Eigen::Matrix<float, 4, 4> transform;
+  Eigen::Matrix<float, 4, 4> transform = Eigen::Matrix<float, 4, 4>::Identity();
 
 public:
   SDFSensor(std::string label);
   virtual ~SDFSensor() = default;
   
-  SDFSensorType getType();
   std::string getLabel();
 
   std::string getDescription();
